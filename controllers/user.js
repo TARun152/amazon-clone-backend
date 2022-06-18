@@ -10,7 +10,7 @@ const addUser = async (req, res) => {
     var member=new User(req.body)
     let newMember=await member.save()
     let webtoken= jwt.sign({ _id: newMember._id }, process.env.SECRET_KEY)
-    res.status(200).json({token:webtoken})
+    res.status(200).json({user:newMember,token:webtoken})
 };
 
 const getUser = async (req, res) => {
@@ -40,7 +40,17 @@ const verifyUser = async(req,res) => {
           res.json(error)
         }
 }
+const getUserById= async (req, res)=> {
+  try {
+      const newuser =await User.findById(req.params.id)
+      // used to remove password and updatedAt from sending in json 
+  res.json(newuser)
+  } catch (error) {
+      return res.send("user not found")
+  }
+}
 
 module.exports.addUser = addUser;
 module.exports.getUser = getUser;
 module.exports.verifyUser = verifyUser;
+module.exports.getUserById = getUserById;

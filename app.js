@@ -14,5 +14,6 @@ app.get('/',(req,res)=>{
 })
 require("./routes/user")(app);
 require("./routes/stripe")(app);
+require("./routes/orders")(app);
 const PORT=process.env.PORT||5000
 app.listen(PORT)

@@ -4,7 +4,7 @@ const getClientSecret=async(req,res)=>{
     console.log(total)
     const paymentIntent=await stripe.paymentIntents.create({
         amount: total,
-        currency: 'usd',
+        currency: 'inr',
         payment_method_types: ['card'],
     })
     res.json({clientSecret: paymentIntent.client_secret})
